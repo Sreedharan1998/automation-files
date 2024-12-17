@@ -1,0 +1,14 @@
+import pandas as pd
+
+# Read the Excel sheet into a pandas DataFrame
+df = pd.read_excel(r"C:\Users\Sreedharan BR\Documents\file.xlsx")
+
+# Convert the "Name" column to lowercase
+df['name'] = df['name'].str.lower()
+
+# Replace spaces with underscores in the "Name" column
+df['name'] = df['name'].str.replace(' ', '_',)
+# df['name'] = df['name'].str.replace('.', '_',)
+
+# Save the modified DataFrame back to the Excel file
+df.to_excel(r"C:\Users\Sreedharan BR\Documents\Exce_folder.xlsx", index=False)
