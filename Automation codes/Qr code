@@ -1,0 +1,37 @@
+import pandas as pd
+# pip install Pillow
+
+# pip install pandas qrcode[pil]
+
+import qrcode
+
+
+# Read Excel sheet into a DataFrame
+excel_file_path = r"C:\Users\Sreedharan BR\Documents\file.xlsx"
+df = pd.read_excel(excel_file_path)
+
+# Folder to store the QR code images
+output_folder = r"D:\my Projects\QR_IMAGE_FOR_LIC\244_dev"
+# Create QR codes for each row in the Excel sheet
+for index, row in df.iterrows():
+    # Combine the domain and name from the Excel sheet
+    url = f"https://dev.anurcloud.com/lichousing/ui/{row['name']}"
+
+    # Generate QR code
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=31.5,
+        border=0,
+    )
+    qr.add_data(url) 
+    qr.make(fit=True)
+ 
+    # Create an image from the QR code
+    img = qr.make_image(fill_color="black", back_color="white")
+
+    # Save the image to the output folder
+    image_name = f"{row['EMP_CODE']}.png"
+    img.save(fr"D:\my Projects\QR_IMAGE_FOR_LIC\244_dev\{image_name}")
+
+print("QR codes generated and saved.")
